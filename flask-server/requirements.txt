@@ -1,9 +1,9 @@
+backoff
 flask
 Flask-SQLAlchemy
 mysql
+requests
 sqlalchemy
 opentelemetry-instrumentation
 opentelemetry-sdk
-opentelemetry-ext-flask
 opentelemetry-ext-jaeger
-opentelemetry-ext-sqlalchemy
