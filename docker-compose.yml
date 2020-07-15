@@ -1,5 +1,15 @@
 version: "3.7"
 services:
+  flask-server:
+    build: ./flask-server
+    networks:
+      - demo
+    ports:
+      - "0.0.0.0:8080:8080" # Flask server port
+    depends_on:
+      - mysql
+      - jaeger
+    stop_grace_period: 1s
   jaeger:
     container_name: jaeger
     image: jaegertracing/all-in-one
@@ -21,7 +31,7 @@ services:
           MYSQL_USER: mysql
           MYSQL_PASSWORD: mysql
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-          MYSQL_DATABASE: mysql
+          MYSQL_DATABASE: wfh
       networks:
           - demo
       stop_grace_period: 1s
