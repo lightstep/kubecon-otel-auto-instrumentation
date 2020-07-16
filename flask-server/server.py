@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright Lightstep Authors
 #
@@ -15,6 +15,7 @@
 # limitations under the License.
 
 import base64
+import json
 import os
 import random
 
@@ -95,11 +96,16 @@ def get_count(advice):
 def help_from_the_internet():
     advices = WFHAdvice.query.all()
     if len(advices) <= 0:
+        # abort(404)
         return "no advice available"
     advice = advices[random.randint(0, len(advices) - 1)].advice
     count = get_count(advice)
+    output = {
+        "tip": advice,
+        "posts": count,
+    }
 
-    return f'"{advice}" suggested {count} times'
+    return json.dumps(output)
 
 
 if __name__ == "__main__":
