@@ -34,6 +34,16 @@ services:
       - mysql
       - jaeger
     stop_grace_period: 1s
+  spring-server:
+    build: ./spring-server
+    networks:
+      - demo
+    ports:
+      - "0.0.0.0:8081:8081" # Spring server port
+    depends_on:
+      - redis
+      - jaeger
+    stop_grace_period: 1s
   jaeger:
     container_name: jaeger
     image: jaegertracing/all-in-one
@@ -61,6 +71,12 @@ services:
       ports:
         - "0.0.0.0:3306:3306" # mysql port
       stop_grace_period: 1s
+  redis:
+    image: redis:6.0.5
+    restart: always
+    networks:
+      - demo
+    stop_grace_period: 1s
 
 networks:
   demo:
