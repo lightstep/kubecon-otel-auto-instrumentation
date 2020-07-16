@@ -1,0 +1,8 @@
+.classpath
+.gradle/
+.project
+.settings/
+.mvn/
+target/
+bin/
+*jar
