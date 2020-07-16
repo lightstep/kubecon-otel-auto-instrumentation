@@ -21,7 +21,7 @@ import random
 
 import backoff
 import requests
-from flask import Flask
+from flask import Flask, abort
 from flask_sqlalchemy import SQLAlchemy
 from opentelemetry import trace
 from opentelemetry.ext.jaeger import JaegerSpanExporter
@@ -33,10 +33,9 @@ from sqlalchemy.orm import relationship
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-    # ] = "postgresql+psycopg2://postgres:postgres@db:5432/postgres"
-] = "mysql+mysqldb://mysql:mysql@mysql:3306/wfh"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+    "MYSQL_URI", "mysql+mysqldb://mysql:mysql@mysql:3306/wfh"
+)
 db = SQLAlchemy(app)
 
 
@@ -50,7 +49,10 @@ class WFHAdvice(db.Model):
 
 trace.get_tracer_provider().add_span_processor(
     BatchExportSpanProcessor(
-        JaegerSpanExporter("flask-server", agent_host_name="jaeger"),
+        JaegerSpanExporter(
+            "flask-server",
+            agent_host_name=os.getenv("OTEL_EXPORTER_JAEGER_AGENT_HOST", "jaeger"),
+        ),
     )
 )
 
@@ -96,8 +98,7 @@ def get_count(advice):
 def help_from_the_internet():
     advices = WFHAdvice.query.all()
     if len(advices) <= 0:
-        # abort(404)
-        return "no advice available"
+        abort(404)
     advice = advices[random.randint(0, len(advices) - 1)].advice
     count = get_count(advice)
     output = {
