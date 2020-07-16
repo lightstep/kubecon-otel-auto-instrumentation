@@ -57,7 +57,9 @@ services:
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
           MYSQL_DATABASE: wfh
       networks:
-          - demo
+        - demo
+      ports:
+        - "0.0.0.0:3306:3306" # mysql port
       stop_grace_period: 1s
 
 networks:

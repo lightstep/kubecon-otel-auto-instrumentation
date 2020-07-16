@@ -59,7 +59,12 @@ trace.get_tracer_provider().add_span_processor(
 
 @app.route("/populate")
 def populate():
-    advice = WFHAdvice.query.all()
+    advice = []
+    try:
+        advice = WFHAdvice.query.all()
+    except Exception:
+        # ignore any errors here
+        pass
     if len(advice) <= 0:
         db.create_all()
         advice_strings = {
@@ -71,16 +76,19 @@ def populate():
             "Be aware of when your camera is on",
             "Maintain Regular Hours. Set a schedule, and stick to it",
             "Create a Morning Routine",
+            "Place action figures or stuffies around your office to give you someone to talk to",
             "Set Ground Rules With the People in Your Space",
             "Schedule Breaks",
             "Take Breaks in Their Entirety",
             "Leave Home",
+            "Focus on your most important work",
+            "Listen to coffee shop soundtracks",
         }
         for advice in advice_strings:
             db.session.add(WFHAdvice(advice=advice))
         db.session.commit()
-        return "already populated!"
-    return "success"
+        return "success"
+    return "already populated!"
 
 
 @backoff.on_exception(
