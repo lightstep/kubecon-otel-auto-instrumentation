@@ -1,7 +1,19 @@
+FROM maven:3.5.2-jdk-8 AS build
+
+RUN apt-get update
+RUN apt-get install -y curl
+RUN update-ca-certificates -f
+
+WORKDIR /usr/src/app
+RUN wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent-all.jar
+COPY src ./src
+COPY pom.xml .
+RUN mvn -f /usr/src/app/pom.xml clean package
+
 FROM openjdk:8-jre-alpine
 
-ADD target/opentelemetry-instrumentation-demo-0.0.1-SNAPSHOT.jar /app/
-ADD opentelemetry-javaagent-all.jar /app/
+COPY --from=build /usr/src/app/opentelemetry-javaagent-all.jar /app/
+COPY --from=build /usr/src/app/target/opentelemetry-instrumentation-demo-0.0.1-SNAPSHOT.jar /app/
 ADD start.sh /app/
 
 CMD ["/app/start.sh"]
