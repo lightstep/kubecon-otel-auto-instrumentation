@@ -14,8 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+DEFAULT_JAEGER_ENDPOINT=localhost:14250
+
+if [ "$JAEGER_ENDPOINT" == "" ]; then
+	JAEGER_ENDPOINT=$DEFAULT_JAEGER_ENDPOINT
+fi
+
 echo "starting server"
 java -javaagent:/app/opentelemetry-javaagent-all.jar \
 	-Dota.exporter=jaeger \
 	-DJAEGER_SERVICE_NAME=spring-server \
+	-DJAEGER_ENDPOINT=$JAEGER_ENDPOINT \
 	-jar /app/opentelemetry-instrumentation-demo-0.0.1-SNAPSHOT.jar

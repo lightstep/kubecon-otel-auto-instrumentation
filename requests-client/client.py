@@ -28,7 +28,7 @@ trace.get_tracer_provider().add_span_processor(
     BatchExportSpanProcessor(
         JaegerSpanExporter(
             "requests-client",
-            agent_host_name=os.getenv("OTEL_EXPORTER_JAEGER_AGENT_HOST", "jaeger"),
+            agent_host_name=os.getenv("OTEL_EXPORTER_JAEGER_AGENT_HOST", "localhost"),
         ),
     )
 )
