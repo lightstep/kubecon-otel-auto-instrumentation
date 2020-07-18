@@ -18,6 +18,7 @@ services:
     build: ./requests-client
     environment:
       - DESTINATION=http://flask-server:8080
+      - OTEL_EXPORTER_JAEGER_AGENT_HOST=jaeger
     networks:
       - demo
     depends_on:
@@ -28,6 +29,7 @@ services:
     build: ./flask-server
     environment:
       - DESTINATION=http://spring-server:8082
+      - OTEL_EXPORTER_JAEGER_AGENT_HOST=jaeger
     networks:
       - demo
     ports:
@@ -38,6 +40,8 @@ services:
     stop_grace_period: 1s
   spring-server:
     build: ./spring-server
+    environment:
+      - JAEGER_ENDPOINT=jaeger:14250
     networks:
       - demo
     ports:
