@@ -98,8 +98,11 @@ def get_count(advice):
     destination = os.getenv("DESTINATION", "http://localhost:8080")
     encoded = base64.b64encode(advice.encode("utf-8"))
     url = f"{destination}/frequency?tip={encoded}"
-    requests.get(url)
-    return 10
+    res = requests.get(url)
+    count = -1
+    if res.status_code == 200:
+        count = res.json().get("posts", -1)
+    return count
 
 
 @app.route("/help")
