@@ -34,7 +34,7 @@ from sqlalchemy.orm import relationship
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
-    "MYSQL_URI", "mysql+mysqldb://mysql:mysql@mysql:3306/wfh"
+    "MYSQL_URI", "mysql+mysqldb://mysql:mysql@localhost:3306/wfh"
 )
 db = SQLAlchemy(app)
 

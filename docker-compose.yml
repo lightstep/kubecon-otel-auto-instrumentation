@@ -30,6 +30,7 @@ services:
     environment:
       - DESTINATION=http://spring-server:8082
       - OTEL_EXPORTER_JAEGER_AGENT_HOST=jaeger
+      - MYSQL_URI=mysql+mysqldb://mysql:mysql@mysql:3306/wfh
     networks:
       - demo
     ports:
