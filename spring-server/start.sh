@@ -17,4 +17,5 @@
 echo "starting server"
 java -javaagent:/app/opentelemetry-javaagent-all.jar \
 	-Dota.exporter=jaeger \
+	-DJAEGER_SERVICE_NAME=spring-server \
 	-jar /app/opentelemetry-instrumentation-demo-0.0.1-SNAPSHOT.jar
