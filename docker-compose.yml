@@ -26,6 +26,8 @@ services:
     stop_grace_period: 1s
   flask-server:
     build: ./flask-server
+    environment:
+      - DESTINATION=http://spring-server:8082
     networks:
       - demo
     ports:
@@ -39,7 +41,7 @@ services:
     networks:
       - demo
     ports:
-      - "0.0.0.0:8081:8081" # Spring server port
+      - "0.0.0.0:8082:8082" # Spring server port
     depends_on:
       - redis
       - jaeger
