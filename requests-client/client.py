@@ -35,10 +35,10 @@ trace.get_tracer_provider().add_span_processor(
 
 
 def send_requests(destination):
-    url = f"{destination}/help-from-the-internet"
+    url = f"{destination}/help"
     try:
         res = requests.get(url)
-        print(f"Working from home advice: {res.text}")
+        print(f"Working from home tip: {res.text}")
     except Exception as e:
         print(f"Request to {url} failed {e}")
 

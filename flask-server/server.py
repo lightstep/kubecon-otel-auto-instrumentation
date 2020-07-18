@@ -102,7 +102,7 @@ def get_count(advice):
     return 10
 
 
-@app.route("/help-from-the-internet")
+@app.route("/help")
 def help_from_the_internet():
     advices = WFHAdvice.query.all()
     if len(advices) <= 0:
