@@ -15,6 +15,6 @@
 # limitations under the License.
 
 echo "starting server"
-java -javaagent:/app/opentelemetry-javaagent-all.jar
+java -javaagent:/app/opentelemetry-javaagent-all.jar \
 	-Dota.exporter=jaeger \
 	-jar /app/opentelemetry-instrumentation-demo-0.0.1-SNAPSHOT.jar
