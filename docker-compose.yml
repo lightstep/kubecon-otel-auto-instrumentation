@@ -43,6 +43,7 @@ services:
     build: ./spring-server
     environment:
       - JAEGER_ENDPOINT=jaeger:14250
+      - REDIS_HOST=redis
     networks:
       - demo
     ports:

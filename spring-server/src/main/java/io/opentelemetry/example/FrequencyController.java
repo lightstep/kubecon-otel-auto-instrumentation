@@ -12,7 +12,7 @@ import redis.clients.jedis.exceptions.JedisException;
 
 @Controller
 public class FrequencyController {
-  private static final JedisPool pool = new JedisPool("localhost", 6379);
+  private static final JedisPool pool = new JedisPool(System.getProperty("redis.host"), 6379);
 
   @GetMapping("/frequency")
   @ResponseBody

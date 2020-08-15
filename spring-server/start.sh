@@ -15,14 +15,20 @@
 # limitations under the License.
 
 DEFAULT_JAEGER_ENDPOINT=localhost:14250
+DEFAULT_REDIS_HOST=localhost
 
 if [ "$JAEGER_ENDPOINT" == "" ]; then
 	JAEGER_ENDPOINT=$DEFAULT_JAEGER_ENDPOINT
 fi
 
+if [ "$REDIS_HOST" == "" ]; then
+	REDIS_HOST=$DEFAULT_REDIS_HOST
+fi
+
 echo "starting server"
 java -javaagent:/app/opentelemetry-javaagent-all.jar \
-	-Dota.exporter=jaeger \
-	-DJAEGER_SERVICE_NAME=spring-server \
-	-DJAEGER_ENDPOINT=$JAEGER_ENDPOINT \
+	-Dotel.exporter=jaeger \
+	-Dotel.jaeger.service.name=spring-server \
+	-Dotel.jaeger.endpoint=$JAEGER_ENDPOINT \
+	-Dredis.host=$REDIS_HOST \
 	-jar /app/opentelemetry-instrumentation-demo-0.0.1-SNAPSHOT.jar
