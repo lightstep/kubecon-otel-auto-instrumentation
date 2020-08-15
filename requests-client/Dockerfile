@@ -1,10 +1,10 @@
 FROM python:3.8.1
 
+RUN pip install -U pip
 ADD requirements.txt .
 RUN pip install -r requirements.txt
-RUN pip install -U pip
 
-ENV OPENTELEMETRY_PYTHON_tracer_provider=sdk_tracer_provider
+ENV OTEL_PYTHON_TRACER_PROVIDER=sdk_tracer_provider
 ENV PYTHONUNBUFFERED=1
 
 ADD client.py /app/client.py

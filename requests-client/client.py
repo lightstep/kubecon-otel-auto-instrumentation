@@ -19,7 +19,7 @@ import time
 
 import backoff
 from opentelemetry import trace
-from opentelemetry.ext.jaeger import JaegerSpanExporter
+from opentelemetry.exporter.jaeger import JaegerSpanExporter
 from opentelemetry.sdk.trace.export import BatchExportSpanProcessor
 import requests
 

@@ -24,7 +24,7 @@ import requests
 from flask import Flask, abort
 from flask_sqlalchemy import SQLAlchemy
 from opentelemetry import trace
-from opentelemetry.ext.jaeger import JaegerSpanExporter
+from opentelemetry.exporter.jaeger import JaegerSpanExporter
 from opentelemetry.sdk.trace.export import BatchExportSpanProcessor
 from sqlalchemy import Column, ForeignKey, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base

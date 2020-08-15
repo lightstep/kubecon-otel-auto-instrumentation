@@ -6,4 +6,4 @@ requests
 sqlalchemy
 opentelemetry-instrumentation
 opentelemetry-sdk
-opentelemetry-ext-jaeger
+opentelemetry-exporter-jaeger
